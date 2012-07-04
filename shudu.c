@@ -129,9 +129,9 @@ int check_no_conflict(char arr[])
 	for (num = 1; num <=9; num++)
 	{
 		// rows
-		exist = 0;
 		for (i = 0; i < 9; i++)
 		{
+			exist = 0;
 			for (j = 0; j < 9; j++)
 			{
 				if (arr[i * 9 + j] == num)//i->9i,j->j
@@ -147,9 +147,9 @@ int check_no_conflict(char arr[])
 		}
 		if (!result) break;
 		// columns
-		exist = 0;
 		for (i = 0; i < 9; i++)
 		{
+			exist = 0;
 			for (j = 0; j < 9; j++)
 			{
 				if (arr[i + j * 9] == num)//i->i,j->9j
@@ -165,9 +165,9 @@ int check_no_conflict(char arr[])
 		}
 		if (!result) break;
 		// blocks
-		exist = 0;
 		for (i = 0; i < 9; i++)
 		{
+			exist = 0;
 			for (j = 0; j < 9; j++)
 			{
 				if (arr[i / 3 * 27 + i % 3 * 3 + j / 3 * 9 + j % 3] == num)
