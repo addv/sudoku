@@ -35,11 +35,13 @@ int main(int argc, char* argv[])
 		0, 9, 0, 0, 0, 0, 4, 0, 0
 	};
 	char arrR[9][9] = {0};
-	show1only = (_getch() == 'y' | 'Y')?1:0;
+	char tempchar;
 
 	print_start(arrShu);
-	printf("Start!\n");
-	getch();
+	printf("Would you want only one answer? (y/n)");
+	tempchar = _getche();
+	show1only = (tempchar == 'y' || tempchar == 'Y')?1:0;
+	printf("\nStart!\n");
 
 //	test((char *)arrShu, (char *)arrShu);
 	test((char *)arrShu, (char *)arrR);
