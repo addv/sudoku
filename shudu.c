@@ -11,12 +11,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <conio.h>
 #include <memory.h>
 
-int check_no_conflict(char arr[]);
+int check_no_conflict(const char* const arr);
 int test(char arr[], char* r);
 void print_start(char const arr[][9]);
 void print_result(const char arrS[][9], const char arrR[][9]);
+
+int show1only;
 
 int main(int argc, char* argv[])
 {
@@ -32,9 +35,11 @@ int main(int argc, char* argv[])
 		0, 9, 0, 0, 0, 0, 4, 0, 0
 	};
 	char arrR[9][9] = {0};
+	show1only = (_getch() == 'y' | 'Y')?1:0;
 
 	print_start(arrShu);
 	printf("Start!\n");
+	getch();
 
 //	test((char *)arrShu, (char *)arrShu);
 	test((char *)arrShu, (char *)arrR);
@@ -89,7 +94,7 @@ int test(char arr[], char* r)
 		// Complete all attempts
 	}
 	else
-	{
+	{// fill to full
 		if (check_no_conflict(p))
 		{
 			memcpy(r, p, 81);
@@ -105,7 +110,7 @@ int test(char arr[], char* r)
 	return result;
 }
 
-int check_no_conflict(char arr[])
+int check_no_conflict(const char* const arr)
 {
 	int result;
 	int exist;
@@ -213,7 +218,7 @@ void print_result(const char arrS[][9], const char arrR[][9])
 			{
 				if (arrS[i][j] == arrR[i][j])
 				{
-					printf("[%d]", arrR[i][j]);
+					printf("(%d)", arrR[i][j]);
 				}
 				else
 				{
