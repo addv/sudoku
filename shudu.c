@@ -122,10 +122,8 @@ int check_no_conflict(char arr[])
 	int num;
 	int i, j;
 
-	if (arr[9] == 4)
-		i = 0;
-	// from 1 to 9, according to three orders, check reiteration
 	result = 1;
+	// from 1 to 9, according to three orders, check reiteration
 	for (num = 1; num <=9; num++)
 	{
 		// rows
