@@ -15,6 +15,7 @@
 
 int check_no_conflict(char arr[]);
 int test(char arr[], char* r);
+void print_result(const char* const p);
 
 int main(int argc, char* argv[])
 {
@@ -42,14 +43,7 @@ int main(int argc, char* argv[])
 
 	test((char *)arrShu, (char *)arrShu);
 	
-	for (i = 0; i < 9; i++)
-	{
-		for (j = 0; j < 9; j++)
-		{
-			printf("%d ", arrShu[i][j]);
-		}
-		printf("\n");
-	}
+	print_result((char *)arrShu);
 	printf("End!\n");
 
 	return 0;
@@ -184,3 +178,25 @@ int check_no_conflict(char arr[])
 	}
 	return result;
 }
+
+void print_result(const char* const p)
+{
+	int i, j;
+	// having space not be fill in numbers means traverse is end
+	if (memchr(p, 0, 81))
+	{
+		printf("There is no result yet.\n");
+	}
+	else
+	{
+		for (i = 0; i < 9; i++)
+		{
+			for (j = 0; j < 9; j++)
+			{
+				printf("%d ", *(p + i * 9 + j));
+			}
+			printf("\n");
+		}
+	}
+}
+
