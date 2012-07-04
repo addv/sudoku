@@ -20,21 +20,21 @@ void print_start(char const arr[][9]);
 void print_result(const char arrS[][9], const char arrR[][9]);
 
 int show1only;
+char arrShu[9][9] = {
+	8, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 3, 6, 0, 0, 0, 0, 0, 
+	0, 7, 0, 0, 9, 0, 2, 0, 0, 
+	0, 5, 0, 0, 0, 7, 0, 0, 0, 
+	0, 0, 0, 0, 4, 5, 7, 0, 0, 
+	0, 0, 0, 1, 0, 0, 0, 3, 0, 
+	0, 0, 1, 0, 0, 0, 0, 6, 8, 
+	0, 0, 8, 5, 0, 0, 0, 1, 0, 
+	0, 9, 0, 0, 0, 0, 4, 0, 0
+};// Placed outside in order to can be invoked when more than one answer.
 char arrR[9][9] = {0};
 
 int main(int argc, char* argv[])
 {
-	char arrShu[9][9] = {
-		8, 0, 0, 0, 0, 0, 0, 0, 0, 
-		0, 0, 3, 6, 0, 0, 0, 0, 0, 
-		0, 7, 0, 0, 9, 0, 2, 0, 0, 
-		0, 5, 0, 0, 0, 7, 0, 0, 0, 
-		0, 0, 0, 0, 4, 5, 7, 0, 0, 
-		0, 0, 0, 1, 0, 0, 0, 3, 0, 
-		0, 0, 1, 0, 0, 0, 0, 6, 8, 
-		0, 0, 8, 5, 0, 0, 0, 1, 0, 
-		0, 9, 0, 0, 0, 0, 4, 0, 0
-	};
 	char tempchar;
 
 	print_start(arrShu);
@@ -83,10 +83,8 @@ int test(char arr[])
 				else// if (next == 1)
 				{// Found, to come out
 					result = 1;// illustrate found in this branch
-					if (show1only)
-						break;
-					else
-						continue;
+					if (!show1only) {continue;}
+					break;
 				}
 			}
 			else
@@ -103,8 +101,9 @@ int test(char arr[])
 		{
 			memcpy(arrR, p, 81);// Can be written back to arr
 			result = 1;
-			if (show1only)
+			if (!show1only)
 			{
+				print_result(arrShu, arrR);
 			}
 		}
 		else
