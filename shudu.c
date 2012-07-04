@@ -14,7 +14,7 @@
 #include <conio.h>
 #include <memory.h>
 
-int check_no_conflict(const char* const arr);
+int check_no_conflict_new(const char* const arr, const char* const off, char num);
 int test(char arr[]);
 void print_start(char const arr[][9]);
 void print_result(const char arrS[][9], const char arrR[][9]);
@@ -99,10 +99,12 @@ int test(char arr[])
 		result = 0;// did not find at the beginning
 		for (num = 1; num <= 9; num++)
 		{
-			*p0 = num;
-			// fill in the number before testing
-			if (check_no_conflict(p))
+//			*p0 = num;
+			// test the number be fill in
+			if (check_no_conflict_new(p, p0, num))
 			{// There is no conflict
+				*p0 = num;
+
 				next = test(p);// Recursive
 				if (next == 0)
 				{// Not found, try next number
@@ -125,7 +127,7 @@ int test(char arr[])
 	}
 	else
 	{// fill to full
-		if (check_no_conflict(p))
+//		if (check_no_conflict(p))
 		{
 			memcpy(arrR, p, 81);// Can be written back to arr
 			result = 1;
@@ -135,17 +137,41 @@ int test(char arr[])
 				print_result(arrShu, arrR);
 			}
 		}
-		else
-		{
-			result = 0;
-		}
+//		else
+//		{
+//			result = 0;
+//		}
 	}
 
 	free(p);
 	return result;
 }
 
-int check_no_conflict(const char* const arr)
+int check_no_conflict_new(const char* const arr, const char* const off, char num)
+{
+	int row = (off - arr) / 9;
+	int col = (off - arr) % 9;
+	int blk = row / 3 * 3 + col / 3;
+	int i;
+	int r;
+	
+	r = 1;
+	
+	for (i = 0; i < 9; i++)
+	{
+		if ((arr[row * 9 + i] == num) || 
+			(arr[col + i * 9] == num) || 
+			(arr[blk / 3 * 27 + blk % 3 * 3 + i / 3 * 9 + i % 3] == num))
+		{
+			r = 0;
+			break;
+		}
+	}
+
+	return r;
+}
+
+int check_no_conflict_old(const char* const arr)
 {
 	int result;
 	int exist;
