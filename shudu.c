@@ -14,25 +14,13 @@
 #include <conio.h>
 #include <memory.h>
 
-int check_no_conflict_new(const char* const arr, const char* const off, char num);
+int check_no_conflict(const char* const arr, const char* const off, char num);
 int test(char arr[]);
 void print_start(char const arr[][9]);
 void print_result(const char arrS[][9], const char arrR[][9]);
 
 int showNum, currNum = 0;
 char arrShu[9][9] = {
-	/*
-	1, 2, 3, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	0, 0, 0, 0, 0, 0, 0, 0, 0
-};
-char arrShu2[9][9] = {//*/
 	8, 0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 3, 6, 0, 0, 0, 0, 0, 
 	0, 7, 0, 0, 9, 0, 2, 0, 0, 
@@ -48,7 +36,7 @@ char arrR[9][9] = {0};
 int main(int argc, char* argv[])
 {
 	char tempchar;
-
+	
 	print_start(arrShu);
 	printf("How many answers do you want? (1-9)");
 	tempchar = _getch();
@@ -63,7 +51,7 @@ int main(int argc, char* argv[])
 		showNum = 1;
 	}
 	printf("\nStart!\n");
-
+	
 	test((char *)arrShu);
 	
 	if (showNum == 1)
@@ -75,7 +63,7 @@ int main(int argc, char* argv[])
 		printf("There is no more yet!\n");
 	}
 	printf("End!\n");
-
+	
 	return 0;
 }
 
@@ -88,23 +76,22 @@ int test(char arr[])
 	char* p0;
 	char num;
 	int next;
-
-	p = (char *)malloc(81);
+	
+	p = malloc(81);
 	memcpy(p, arr, 81);
-
+	
 	// find out whether it has been filled
-	p0 = (char *)memchr(p, 0, 81);
+	p0 = memchr(p, 0, 81);
 	if (p0)
 	{
 		result = 0;// did not find at the beginning
 		for (num = 1; num <= 9; num++)
 		{
-//			*p0 = num;
 			// test the number be fill in
-			if (check_no_conflict_new(p, p0, num))
+			if (check_no_conflict(p, p0, num))
 			{// There is no conflict
 				*p0 = num;
-
+				
 				next = test(p);// Recursive
 				if (next == 0)
 				{// Not found, try next number
@@ -127,27 +114,20 @@ int test(char arr[])
 	}
 	else
 	{// fill to full
-//		if (check_no_conflict(p))
+		memcpy(arrR, p, 81);// Can be written back to arr
+		result = 1;
+		if (showNum != 1)
 		{
-			memcpy(arrR, p, 81);// Can be written back to arr
-			result = 1;
-			if (showNum != 1)
-			{
-				printf("%d.\n", ++currNum);
-				print_result(arrShu, arrR);
-			}
+			printf("%d.\n", ++currNum);
+			print_result(arrShu, arrR);
 		}
-//		else
-//		{
-//			result = 0;
-//		}
 	}
-
+	
 	free(p);
 	return result;
 }
 
-int check_no_conflict_new(const char* const arr, const char* const off, char num)
+int check_no_conflict(const char* const arr, const char* const off, char num)
 {
 	int row = (off - arr) / 9;
 	int col = (off - arr) % 9;
@@ -160,85 +140,15 @@ int check_no_conflict_new(const char* const arr, const char* const off, char num
 	for (i = 0; i < 9; i++)
 	{
 		if ((arr[row * 9 + i] == num) || 
-			(arr[col + i * 9] == num) || 
-			(arr[blk / 3 * 27 + blk % 3 * 3 + i / 3 * 9 + i % 3] == num))
+		    (arr[col + i * 9] == num) || 
+		    (arr[blk / 3 * 27 + blk % 3 * 3 + i / 3 * 9 + i % 3] == num))
 		{
 			r = 0;
 			break;
 		}
 	}
-
+	
 	return r;
-}
-
-int check_no_conflict_old(const char* const arr)
-{
-	int result;
-	int exist;
-	int num;
-	int i, j;
-
-	result = 1;
-	// from 1 to 9, according to three orders, check reiteration
-	for (num = 1; num <=9; num++)
-	{
-		// rows
-		for (i = 0; i < 9; i++)
-		{
-			exist = 0;
-			for (j = 0; j < 9; j++)
-			{
-				if (arr[i * 9 + j] == num)//i->9i,j->j
-				{
-					if (exist++)
-					{
-						result = 0;
-						break;
-					}
-				}
-			}
-			if (!result) break;
-		}
-		if (!result) break;
-		// columns
-		for (i = 0; i < 9; i++)
-		{
-			exist = 0;
-			for (j = 0; j < 9; j++)
-			{
-				if (arr[i + j * 9] == num)//i->i,j->9j
-				{
-					if (exist++)
-					{
-						result = 0;
-						break;
-					}
-				}
-			}
-			if (!result) break;
-		}
-		if (!result) break;
-		// blocks
-		for (i = 0; i < 9; i++)
-		{
-			exist = 0;
-			for (j = 0; j < 9; j++)
-			{
-				if (arr[i / 3 * 27 + i % 3 * 3 + j / 3 * 9 + j % 3] == num)
-					//i->i/3*27+i%3*3,j->j/3*9+j%3
-				{
-					if (exist++)
-					{
-						result = 0;
-						break;
-					}
-				}
-			}
-			if (!result) break;
-		}
-		if (!result) break;
-	}
-	return result;
 }
 
 void print_start(const char arr[][9])
