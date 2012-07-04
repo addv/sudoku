@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 {
 	int i, j;
 	char arrShu[9][9] = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 
+		1, 2, 3, 0, 0, 0, 0, 0, 0, 
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -96,7 +96,7 @@ int test(char arr[], char* r)
 				continue;
 			}
 		}
-		// complete all attempts
+		// Complete all attempts
 	}
 	else
 	{
@@ -122,6 +122,8 @@ int check_no_conflict(char arr[])
 	int num;
 	int i, j;
 
+	if (arr[9] == 4)
+		i = 0;
 	// from 1 to 9, according to three orders, check reiteration
 	result = 1;
 	for (num = 1; num <=9; num++)
