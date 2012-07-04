@@ -15,11 +15,12 @@
 #include <memory.h>
 
 int check_no_conflict(const char* const arr);
-int test(char arr[], char* r);
+int test(char arr[]);
 void print_start(char const arr[][9]);
 void print_result(const char arrS[][9], const char arrR[][9]);
 
 int show1only;
+char arrR[9][9] = {0};
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +35,6 @@ int main(int argc, char* argv[])
 		0, 0, 8, 5, 0, 0, 0, 1, 0, 
 		0, 9, 0, 0, 0, 0, 4, 0, 0
 	};
-	char arrR[9][9] = {0};
 	char tempchar;
 
 	print_start(arrShu);
@@ -43,8 +43,7 @@ int main(int argc, char* argv[])
 	show1only = (tempchar == 'y' || tempchar == 'Y')?1:0;
 	printf("\nStart!\n");
 
-//	test((char *)arrShu, (char *)arrShu);
-	test((char *)arrShu, (char *)arrR);
+	test((char *)arrShu);
 	
 	print_result(arrShu, arrR);
 	printf("End!\n");
@@ -52,7 +51,7 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-int test(char arr[], char* r)
+int test(char arr[])
 {
 	int result;
 	// 1: found answer
@@ -76,7 +75,7 @@ int test(char arr[], char* r)
 			// fill in the number before testing
 			if (check_no_conflict(p))
 			{// There is no conflict
-				next = test(p, r);// Recursive
+				next = test(p);// Recursive
 				if (next == 0)
 				{// Not found, try next number
 					continue;
@@ -99,7 +98,7 @@ int test(char arr[], char* r)
 	{// fill to full
 		if (check_no_conflict(p))
 		{
-			memcpy(r, p, 81);
+			memcpy(arrR, p, 81);// Can be written back to arr
 			result = 1;
 		}
 		else
