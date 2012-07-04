@@ -21,6 +21,17 @@ void print_result(const char arrS[][9], const char arrR[][9]);
 
 int show1only;
 char arrShu[9][9] = {
+	1, 2, 3, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	0, 0, 0, 0, 0, 0, 0, 0, 0
+};// Placed outside in order to can be invoked when more than one answer.
+char arrShu2[9][9] = {
 	8, 0, 0, 0, 0, 0, 0, 0, 0, 
 	0, 0, 3, 6, 0, 0, 0, 0, 0, 
 	0, 7, 0, 0, 9, 0, 2, 0, 0, 
