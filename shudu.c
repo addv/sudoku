@@ -83,7 +83,10 @@ int test(char arr[])
 				else// if (next == 1)
 				{// Found, to come out
 					result = 1;// illustrate found in this branch
-					break;
+					if (show1only)
+						break;
+					else
+						continue;
 				}
 			}
 			else
@@ -100,6 +103,9 @@ int test(char arr[])
 		{
 			memcpy(arrR, p, 81);// Can be written back to arr
 			result = 1;
+			if (show1only)
+			{
+			}
 		}
 		else
 		{
