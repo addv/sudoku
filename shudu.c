@@ -175,11 +175,20 @@ int check_no_conflict(char arr[])
 void print_start(const char arr[][9])
 {
 	int i, j;
+	char c;
 	for (i = 0; i < 9; i++)
 	{
 		for (j = 0; j < 9; j++)
 		{
-			printf("%d ", arr[i][j]);
+			c = arr[i][j];
+			if (c)
+			{
+				printf("[%d]", c);
+			}
+			else
+			{
+				printf(" . ");
+			}
 		}
 		printf("\n");
 	}
@@ -199,7 +208,7 @@ void print_result(const char arr[][9])
 		{
 			for (j = 0; j < 9; j++)
 			{
-				printf("%d ", arr[i][j]);
+				printf(" %d ", arr[i][j]);
 			}
 			printf("\n");
 		}
