@@ -19,7 +19,7 @@ int test(char arr[]);
 void print_start(char const arr[][9]);
 void print_result(const char arrS[][9], const char arrR[][9]);
 
-int show1only;
+int showNum, currNum = 0;
 char arrShu[9][9] = {
 	1, 2, 3, 0, 0, 0, 0, 0, 0, 
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -49,14 +49,26 @@ int main(int argc, char* argv[])
 	char tempchar;
 
 	print_start(arrShu);
-	printf("Would you want only one answer? (y/n)");
-	tempchar = _getche();
-	show1only = (tempchar == 'y' || tempchar == 'Y')?1:0;
+	printf("How many answers do you want? (1-9)");
+	tempchar = _getch();
+	if (tempchar >= '1' && tempchar <= '9')
+	{
+		_putch(tempchar);
+		showNum = tempchar - '0';
+	}
+	else
+	{
+		_putch('1');
+		showNum = 1;
+	}
 	printf("\nStart!\n");
 
 	test((char *)arrShu);
 	
-	print_result(arrShu, arrR);
+	if (showNum == 1)
+	{
+		print_result(arrShu, arrR);
+	}
 	printf("End!\n");
 
 	return 0;
@@ -94,7 +106,7 @@ int test(char arr[])
 				else// if (next == 1)
 				{// Found, to come out
 					result = 1;// illustrate found in this branch
-					if (!show1only) {continue;}
+					if (showNum != 1 && currNum < showNum) {continue;}
 					break;
 				}
 			}
@@ -112,8 +124,9 @@ int test(char arr[])
 		{
 			memcpy(arrR, p, 81);// Can be written back to arr
 			result = 1;
-			if (!show1only)
+			if (showNum != 1)
 			{
+				printf("%d.\n", ++currNum);
 				print_result(arrShu, arrR);
 			}
 		}
