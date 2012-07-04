@@ -70,6 +70,10 @@ int main(int argc, char* argv[])
 	{
 		print_result(arrShu, arrR);
 	}
+	else if(showNum > currNum)
+	{
+		printf("There is no more yet!\n");
+	}
 	printf("End!\n");
 
 	return 0;
