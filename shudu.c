@@ -89,13 +89,14 @@ int test(char arr[])
 	char num;
 	int next;
 
-	p = (char *)malloc(81);
-	memcpy(p, arr, 81);
-
 	// find out whether it has been filled
-	p0 = (char *)memchr(p, 0, 81);
+	p0 = (char *)memchr(arr, 0, 81);
 	if (p0)
 	{
+		p = (char *)malloc(81);
+		memcpy(p, arr, 81);
+		p0 = (char *)memchr(p, 0, 81);// for filling *p0 later
+
 		result = 0;// did not find at the beginning
 		for (num = 1; num <= 9; num++)
 		{
@@ -122,12 +123,13 @@ int test(char arr[])
 			}
 		}
 		// Complete all attempts
+		free(p);
 	}
 	else
 	{// fill to full
-		if (check_no_conflict(p))
+		if (check_no_conflict(arr))
 		{
-			memcpy(arrR, p, 81);// Can be written back to arr
+			memcpy(arrR, arr, 81);// Can be written back to arr
 			result = 1;
 			if (showNum != 1)
 			{
@@ -141,7 +143,6 @@ int test(char arr[])
 		}
 	}
 
-	free(p);
 	return result;
 }
 
